@@ -1,0 +1,11 @@
+<% content_for :left do %>
+  <%= render :partial => '/app_menu' %>
+<% end %>
+
+<%= render :partial => 'friend/menu' %><br/>
+
+<div id="friends">
+  <%= render :partial => 'friend', :collection => @friends %>
+</div>
+
+<%= will_paginate @friends %>

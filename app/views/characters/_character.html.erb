@@ -1,0 +1,25 @@
+<% rating = character.game.find_rating_by_user(current_user).rating %>
+<li id='character_<%= character.id %>'>
+	<h4><%= label_tag '', '人物昵称: '%> <%= character.name %><%= link_to_function "编辑", "profile_manager.edit_character_info(#{character.id});" %></h4>
+	<div>
+  <p><%= label_tag '', '等级: '%><%= character.level %></p>
+  <p><%= label_tag '', '游戏: '%><%= game_link character.game %></p>
+  <p><%= label_tag '', '您的评分'%>
+<ul class='star-rating'>
+   <li class='current-rating' style='width:<%= (rating * 30).to_i -%>px;'>
+          Currently <%= rating %>/5 Stars.
+    </li>
+</ul>
+  </p>
+  <% unless character.game.no_areas %>
+    <p><%= label_tag '', '区域: '%><%= character.area.name %></p>
+  <% end %>
+  <p><%= label_tag '', '服务器: '%><%= character.server.name %></p>
+  <% unless character.game.no_races %>
+    <p><%= label_tag '', '种族: '%><%= character.race.name %></p>
+  <% end %>
+  <% unless character.game.no_professions %>
+    <p><%= label_tag '', '职业: '%><%= character.profession.name %></p>
+  <% end %>
+	</div>
+</li>

@@ -1,0 +1,26 @@
+<div class='header'>
+  <h3>新相册</h3>
+</div>
+
+<div id='errors'></div>
+<% form_remote_for :album, :url => personal_album_url(@album), :method => :put do |f| %>
+  <div class='content'>
+    <div class='title'>
+    <%= f.label '标题' %><br/>
+    <%= f.text_field :title %>
+    </div>
+    <div class='description'>
+    <%= f.label '描述' %><br/>
+    <%= f.text_field :description %>
+    </div>
+    <div class='option'>
+    <%= f.label "category: " %><%= f.collection_select 'game_id', @user.games, :id, :name, {:prompt => '---'} %><br/>
+    <%= f.label "privilege: "%><%= privilege_select_tag(:album) %>
+    </div> 
+  </div>
+  <div class='footer'>
+    <%= f.submit '创建', :class => 'confirm-button' %>
+    <%= button_to_function '取消', "facebox.close();", :class => 'cancel-button' %>
+  </div>
+<% end %>
+

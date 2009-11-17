@@ -1,0 +1,38 @@
+<% content_for :left do %>
+  <%= render :partial => '/app_menu' %><br/>
+  <div class='blog-right-bar'>
+    <div class='part'>
+      <h3>相册分类: </h3>
+      <% game_options = [['全部', nil]] %>
+      <% @user.games.each {|g| game_options << [g.name, g.id] } %>
+      <%= select_tag '', options_for_select(game_options, params[:game_id].to_i), :onchange => "window.location.href = '#{relative_personal_photos_url(:id => @user.id)}' + '&game_id=' + this.value;" %>
+    </div>
+  </div>
+<% end %>
+
+<div>
+<% subject = get_subject @user %>
+<%= link_to "热门相片", hot_personal_photos_url(:id => @user.id) %> |
+<%= link_to "最新相册", recent_personal_albums_url(:id => @user.id) %> |
+<%= link_to "#{subject}的相册", personal_albums_url(:id => @user.id) %> |
+<% if @user == current_user %>
+  <%= link_to "好友相册" %> |
+<% end %> 
+<%= link_to "#{subject}的相关相片" %> |
+<% if @user == current_user %>
+  <%= link_to "上传照片", select_personal_albums_url %> |
+  <%= link_to "新专辑", new_personal_album_url, :rel => 'facebox' %>
+<% end %>
+</div>
+
+<div id='albums'>
+	<% @photos.each do |p| %>
+		<li>
+			<div><%= photo_link p %></div>
+			<div>相册: <%= album_link p.album %></div>
+			<div><%= ftime p.created_at %></div>
+		</li>
+	<% end %>
+</div>
+
+<%= will_paginate @photos %>

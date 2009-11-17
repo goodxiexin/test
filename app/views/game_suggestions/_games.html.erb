@@ -1,0 +1,20 @@
+<% games.each do |game| %>
+  <p>
+  <%= game.name %>
+  <% unless game.official_web.blank? %>
+    <%= link_to '官网', game.official_web, :popup => true %>
+  <% else %>
+    暂无官网
+  <% end %>
+  <%= game.company %>
+  <%= ftime2(game.sale_date) %>
+  <%= game.description %>
+  <div id="game_attention_<%= game.id%>">
+		<% if current_user.interested_in_game? game %>
+			<%= '已关注' %>
+		<% else %>
+			<%= button_to_remote "关注", :url => game_attentions_url(game) %>
+		<% end %>
+	</div>
+	</p>
+<% end %>

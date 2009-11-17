@@ -1,0 +1,45 @@
+<%= javascript_include_tag 'game_suggestion' %>
+
+<% content_for :right do %>
+<div class='visitors'>
+  <h3>我关注：</h3>
+  <div id='my_attentions'>
+		<%= render :partial => 'interested_game', :collection => @interested_games %> 
+  </div>
+</div>
+<div class='visitors'>
+  <h3>关注榜 <%= link_to_function 'fold', "$('attention_list').toggle();if(this.innerHTML == 'fold') this.update('unfold'); else this.update('fold');", :class => 'hide-all'%></h3>
+  <div id='attention_list'>
+  <% @game_list.each do |game| %>
+    <li><%= game_link game %>(<%= game.attentions_count %>人关注)</li>
+  <% end %>
+  </div>
+</div>
+<div class='visitors'>
+  <h3>最近测试 <%= link_to_function 'fold', "$('beta_list').toggle();if(this.innerHTML == 'fold') this.update('unfold'); else this.update('fold');", :class => 'hide-all'%></h3>
+  <div id='beta_list'>
+  <% @beta_list.each do |game| %>
+    <li><%= game_link game %>  <%= ftime2(game.sale_date) %></li>
+  <% end %>
+  </div>
+</div>
+<% end %>
+
+<h3>您想玩什么样的游戏？</h3>
+<p>
+  <%= text_field :the_game, :tags, :size => 50 %>
+  <%= button_to_function "推荐", "game_suggestor.suggest();" %>
+</p>
+如果只想我们推荐比较新的游戏请点这<%= check_box_tag 'new_game' %>
+<h3>点击您想要的游戏特点后，点击推荐按钮，我们会给您推荐游戏</h3>
+  <% @game_tags.each do |tag| %>
+  <li id=<%= "game_tag_#{tag.id}" %>> 
+    <%= link_to_function tag.name, "game_suggestor.add_tag('#{tag.name}')" %>
+  </li>
+<% end %> 
+<div id="game_suggestion_area">
+</div>
+
+<%= javascript_tag "
+	game_suggestor = new GameSuggestor();
+" %>

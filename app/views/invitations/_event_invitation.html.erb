@@ -1,0 +1,12 @@
+<% invitation = event_invitation %>
+<div class='friend' id='event_invitation_<%= invitation.id %>'>
+	<div>
+		<%= "#{profile_link invitation.event.poster}邀请你加入活动#{event_link invitation.event}" %>
+	</div>
+  <div class='operation' id='event_invitation_operation_<%= invitation.id %>'>
+		<%= radio_button :invitation, :status, 1, :onclick => "new Ajax.Request('#{event_invitation_url(invitation.event, invitation, 'invitation[status]' => 3, :show => 2, :authenticity_token => form_authenticity_token)}', {method: 'put'});" %><%= label_tag '', '肯定去' %><br/>
+		<%= radio_button :invitation, :status, 2, :onclick => "new Ajax.Request('#{event_invitation_url(invitation.event, invitation, 'invitation[status]' => 4, :show => 2, :authenticity_token => form_authenticity_token)}', {method: 'put'});" %><%= label_tag '', '可能去' %><br/>
+		<%= radio_button :invitation, :status, 3, :onclick => "if(confirm('are you sure?')){new Ajax.Request('#{event_invitation_url(invitation.event, invitation, 'invitation[status]' => 5, :show => 2, :authenticity_token => form_authenticity_token)}', {method: 'put'});}" %><%= label_tag '', '不鸟他' %><br/>
+	</div>
+</div>
+

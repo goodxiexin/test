@@ -1,0 +1,15 @@
+<div class='header'>
+  <h3>请求加入</h3>
+</div>
+
+<div id='error'></div>
+<% form_remote_for :request, :url => event_requests_url(@event, :show => 0), :html => {:method => :post} do |f| %>
+<div class='content'>
+  <%= f.radio_button 'status', 1 %><%= label_tag '', '肯定参加' %><br/>
+  <%= f.radio_button 'status', 2 %><%= label_tag '', '可能参加' %><br/>
+</div>
+<div class='footer'>
+  <%= f.submit '请求加入', :class => 'confirm-button' %>
+  <%= button_to_function '取消', "facebox.close();", :class => 'cancel-button' %>
+</div>
+<% end %>

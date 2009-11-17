@@ -1,0 +1,22 @@
+<% content_for :left do %>
+	<%= render :partial => '/app_menu' %>
+<% end %>
+
+<div>
+	<%= link_to "通知", notifications_url %> |
+	<%= link_to "请求", requests_url %> |
+	<%= link_to "邀请", invitations_url %>
+</div>
+
+<div class='inbox-notification'>
+  <div class='title'>今天</div>
+  <%= render :partial => 'notification', :collection => @notifications.find(:all, :conditions => ["created_at >= ?", Time.now.beginning_of_day]) %>
+  <br/>
+  <div class='title'>本周</div>
+  <%= render :partial => 'notification', :collection => @notifications.find(:all, :conditions => ["created_at < ? AND created_at >= ?", Time.now.beginning_of_day, Time.now.beginning_of_week]) %>
+  <br/>
+  <div class='title'>上周</div>
+  <%= render :partial => 'notification', :collection => @notifications.find(:all, :conditions => ["created_at < ? AND created_at >= ?", Time.now.beginning_of_week, 1.week.ago.beginning_of_day]) %> 
+  <br/>
+</div>
+

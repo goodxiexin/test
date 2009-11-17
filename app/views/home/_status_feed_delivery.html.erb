@@ -1,0 +1,15 @@
+<% delivery = status_feed_delivery %>
+<% status = delivery.feed_item.originator %>
+<div class="feed-list" id='delivery_<%= delivery.id %>'>
+	<div class="feed-icon icon-share"></div>
+  <p><%= profile_link status.poster %> <span>更新了状态</span> </p>
+	<div class="feed-pic s_clear">
+		<div class="img">
+			<%= avatar status.poster %> 
+    </div>
+    <div class="pics"> <%= status.content %> </div>
+		<p><%= ftime status.created_at %> <%= link_to_function "评论", "show_comment_form('status', #{status.id}, null)" %></p>
+  </div>
+	<%= render :partial => 'comments/folded_comment_box', :locals => {:type => 'status', :commentable => status} %>
+	<div><%= link_to_remote 'x', :url => feed_delivery_url(delivery), :method => :delete %></div>
+</div>

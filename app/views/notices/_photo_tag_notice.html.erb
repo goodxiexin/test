@@ -1,0 +1,9 @@
+<% photo = tag.photo %>
+<% album = photo.album %>
+<% link = "#{link_to_function album.title, "home_manager.read_notice('#{read_notice_url(notice)}', '#{form_authenticity_token}');window.open('/#{photo.class.to_s.underscore}s/#{photo.id}');"}" %>
+<li>
+  <div class="feed-message">
+    <%= link_to_function '', "home_manager.read_notice('#{read_notice_url(notice)}', '#{form_authenticity_token}')", :class => 'icon-active' %>
+    <%= profile_link tag.poster %> 在相册 <%= link %> 里标记了你
+  </div>
+</li>

@@ -1,0 +1,30 @@
+<% content_for :left do %>
+	<%= render :partial => '/app_menu' %>
+<% end %>
+
+<div>
+<%= link_to "通知", notifications_url %> |
+<%= link_to "请求", requests_url %> |
+<%= link_to "邀请", invitations_url %>
+</div>
+
+<div>
+<%= link_to "所有请求", requests_url %> |
+<%= link_to "好友请求", requests_url(:type => 0) %> |
+<%= link_to "活动请求", requests_url(:type => 1) %> |
+<%= link_to "工会请求", requests_url(:type => 2) %>
+</div>
+
+<div>
+<% @requests.each do |request| %>
+	<% if request.instance_of? Friendship %>
+		<%= render :partial => 'friend_request', :object => request %>
+	<% elsif request.instance_of? Participation %>
+		<%= render :partial => 'event_request', :object => request %>
+	<% elsif request.instance_of? Membership %>
+		<%= render :partial => 'guild_request', :object => request %>
+	<% end %>
+<% end %>
+</div>
+
+<%= will_paginate @requests %>

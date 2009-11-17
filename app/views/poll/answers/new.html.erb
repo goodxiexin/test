@@ -1,0 +1,19 @@
+<div class='header'>
+  <h3>增加选项</h3>
+</div>
+
+<div id='error'></div>
+<% form_remote_tag :url => poll_answers_url(@poll) do %>
+<div class='content'>
+  <div id='poll_answers'>
+    <%= render :partial => 'poll/polls/answer_input', :object => PollAnswer.new %>
+  </div>
+  <%= link_to_function '添加选项' do |page|
+        page.insert_html :bottom, :poll_answers, :partial => 'poll/polls/answer_input', :object => PollAnswer.new
+      end %><br/>
+</div>
+<div class='footer'>
+  <%= submit_tag '确定', :class => 'confirm-button' %>
+  <%= button_to_function '取消', "facebox.close();", :class => 'cancel-button' %>
+</div>
+<% end %>

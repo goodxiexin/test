@@ -1,0 +1,69 @@
+<% content_for :left do %>
+<div class="mcAvatar">
+  <a href="#"></a>
+  <div class="picwrap">
+    <div class="middle"><div class="middle-center"><div class="center">
+			<%= album_cover @album %>
+		</div></div></div>
+	</div>
+</div>
+<div class="info-list">
+	<%= render :partial => 'game_info' %>
+</div>
+<% end %>
+
+<% content_for :right do %>
+	<%= render :partial => 'game_events' %>
+	<%= render :partial => 'game_games' %>
+<% end %>
+
+<div class='box02 canvas_con'>
+
+<div class="multibox">
+	<div class="title"><b>玩家印象</b></div>
+	<div class="photolist-big-box">
+  </div>
+</div>
+<div class="multibox">
+	<div class="title"><%= link_to '更多', game_album_url(@album) %><b>照片</b></div>
+  <div class="photolist-big-box">
+		<ul class="collection s_clear">
+		<% @album.photos[0..4].each do |p| %>
+			<li>
+				<div class="middle"><div class="middle-center"><div class="center"><%= photo_link p, :class => 'imgbox02' %></a></div></div></div>
+			</li>
+		<% end %>
+		</ul>
+	</div>
+</div>
+
+<div class="multibox">
+	<div class="title"><%= link_to '更多' %><b>博客</b></div>
+  <div class="photolist-box">
+		<ul class="collection s_clear">
+    </ul>
+  </div>
+</div>
+
+<div class="bookbox">
+	<h3><label for="book">留言板</label>(<%= link_to '查看全部', game_comments_url(@game) %>)</h3>
+  <div class="formcontent s_clear">
+		<% form_remote_for :comment, :url => game_comments_url(@game), :condition => "validate_comment($('comment_content'))" do |f| %>
+      <div class="rows">
+        <div class="textarea-wrap"><div class="textarea-wide">
+          <%= f.text_area 'content', :class => 'textarea' %>
+        </div></div>
+      </div>
+      <div class="buttons">
+        <span class="button"><span><button type="submit">发布</button></span></span>
+        <%= emotion_link 'comment_content' %>
+      </div>
+    <% end %>
+	</div>
+</div>
+
+<div class="feed-box" id='comments'>
+  <%= render :partial => 'game/comments/comment', :collection => @comments %>
+</div>
+
+</div>

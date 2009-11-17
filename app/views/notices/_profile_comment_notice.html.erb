@@ -1,0 +1,12 @@
+<% profile = comment.commentable %>
+<% link = "#{link_to_function "留言版", "home_manager.read_notice('#{read_notice_url(notice)}', '#{form_authenticity_token}'); window.open('/profiles/#{profile.id}?reply_to=#{comment.poster_id}');"}" %>
+<li>
+	<div class="feed-message">
+		<%= link_to_function '', "home_manager.read_notice('#{read_notice_url(notice)}', '#{form_authenticity_token}')", :class => 'icon-active' %>
+		<% if notice.data == 'comment' %>
+			<%= profile_link comment.poster %> 在你的 <%= link %> 上留言了
+		<% elsif notice.data == 'reply' %>
+			<%= profile_link comment.poster %> 在 <%= profile_link profile.user %> 的 <%= link %>  上回复了你
+		<% end %> 		
+	</div>
+</li>

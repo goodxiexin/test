@@ -1,0 +1,19 @@
+<div class='header'>
+  <h3>请求加<%= @recipient.login %>为好友</h3>
+</div>
+
+<div id='error' style='color:red'>
+</div>
+
+<% form_remote_for :request, :url => friend_requests_url do |f| %>
+  <div class='content'>
+		<%= hidden_field_tag 'request[friend_id]', @recipient.id %>
+    <%= f.label '说点什么吧' %><br/>
+    <%= f.text_area 'data', :rows => 6, :cols => 30 %>
+  </div>
+  <div class='footer'>
+    <%= f.submit '提交', :class => 'confirm-button' %>
+    <%= button_to_function '取消', "facebox.close();", :class => 'cancel-button' %>
+  </div>
+<% end %>
+

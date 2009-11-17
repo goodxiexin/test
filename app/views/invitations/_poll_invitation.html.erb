@@ -1,0 +1,7 @@
+<% poll = poll_invitation.poll %>
+
+<div class='friend' id='poll_invitation_<%= poll_invitation.id %>'>
+  <div class='detail'>
+    <%= profile_link poll.poster %>邀请你参加投票<%= link_to_remote (truncate poll.name, :length => 20, :omission => '...'), :url => poll_invitation_url(poll, poll_invitation), :method => :delete %>, 快去看看
+  </div>
+</div>

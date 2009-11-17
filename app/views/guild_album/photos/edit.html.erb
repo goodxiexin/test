@@ -1,0 +1,21 @@
+<div class='header'>
+  <h3>编辑照片</h3>
+</div>
+
+<% form_remote_for :photo, :url => guild_photo_url(@photo), :method => :put do |f| %>
+  <div class='content'>
+    <%= image_tag @photo.public_filename(:small) %><br/>
+    <%= f.label '照片描述' %>
+    <%= f.text_area 'notation', :rows => 4, :cols => 40 %><br/>
+    <%= f.label '所属专辑' %>
+    <%= f.label @album.title %><br/>
+		<% if current_user == @user %>
+    <%= f.label '专辑封面' %>
+    <%= check_box_tag 'cover', 1, @photo.is_cover? %>设置为工会封面
+		<% end %>
+	</div>
+  <div class='footer'>
+    <%= f.submit '确定', :class => 'confirm-button' %>
+    <%= button_to_function '取消', "facebox.close();", :class => 'cancel-button' %>
+  </div>
+<% end %>

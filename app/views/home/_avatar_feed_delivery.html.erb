@@ -1,0 +1,19 @@
+<% delivery = avatar_feed_delivery %>
+<% avatar = delivery.feed_item.originator %>
+<% album = avatar.album %>
+<div class="feed-list" id='feed_delivery_<%= delivery.id %>'>
+	<div class="feed-icon icon-photo"></div>
+	<p><%= profile_link album.poster %> <span>更新了头像</span> </p>
+  <div class="feed-pic s_clear">
+		<div class="img">
+			<%= avatar album.poster %>
+		</div>
+		<div class="pics">
+			<%= photo_link avatar, :size => :large, :class => 'imgbox01' %>
+		</div>
+		<p><%= ftime delivery.created_at %> <%= link_to_function "回复", "show_comment_form('avatar', #{avatar.id}, null);" %></p>
+	</div>
+	<%= render :partial => 'comments/folded_comment_box', :locals => {:type => 'avatar', :commentable => avatar } %>
+	<div><%= link_to_remote 'x', :url => feed_delivery_url(delivery), :method => :delete %></div>
+</div>
+

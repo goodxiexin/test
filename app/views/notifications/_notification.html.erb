@@ -1,0 +1,9 @@
+<div id='notification_<%= notification.id %>' class='content'>
+  <%= notification.data %>
+  <span class='time'>
+    <%= ftime notification.created_at %>
+  </span>
+  <span class='delete'>
+    <%= link_to_remote 'x', :url => notification_url(notification), :method => :delete %>
+  </span>
+</div>

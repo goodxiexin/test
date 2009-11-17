@@ -1,0 +1,16 @@
+<div class='header'>
+	<h3>活动设置</h3>
+</div>
+
+<% form_remote_for :setting, :url => application_setting_url(@setting), :method => :put do |f| %>
+	<div class='content'>
+		<%= f.check_box 'recv_event_feed' %>
+		<%= f.label "看到别人的新鲜事" %><br/>
+		<%= f.check_box 'emit_event_feed' %>
+    <%= f.label "让别人看到我的新鲜事" %><br/>
+	</div>
+	<div class='footer'>
+		<%= f.submit '确定', :class => 'confirm-button' %>
+		<%= button_to_function '取消', "facebox.close()", :class => 'cancel-button' %>
+	</div>
+<% end %>

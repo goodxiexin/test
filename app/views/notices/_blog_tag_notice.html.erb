@@ -1,0 +1,8 @@
+<% blog = tag.blog %>
+<% link = "#{link_to_function blog.title, "home_manager.read_notice('#{read_notice_url(notice)}', '#{form_authenticity_token}');window.open('/blogs/#{blog.id}');"}" %>
+<li>
+  <div class="feed-message">
+    <%= link_to_function '', "home_manager.read_notice('#{read_notice_url(notice)}', '#{form_authenticity_token}')", :class => 'icon-active' %>
+    <%= profile_link tag.poster %> 在博客 <%= link %> 里标记了你
+  </div>
+</li>
